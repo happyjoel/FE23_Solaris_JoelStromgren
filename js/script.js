@@ -1,9 +1,8 @@
 "use strict";
-// GENERAL SELECTORS
+//                          SELECTORS
+
 const planets = document.querySelectorAll(".planet");
 const sun = document.querySelector(".planet-sun");
-
-// MODAL SELECTORS
 
 import { searchApi, getPlanetData } from "./modules/api.js";
 import {
@@ -13,7 +12,7 @@ import {
   modal,
 } from "./modules/display.js";
 
-// --------    EVENT LISTERNERS
+//                       EVENT LISTERNERS
 
 // Toggle MODAL och BLUR när man klickar på en planet
 planets.forEach((planet) => {
@@ -48,7 +47,3 @@ searchInput.addEventListener("keyup", (e) => {
     searchApi(searchInput.value);
   }
 });
-
-// --------    FUNCTIONS
-
-// SEARCH FUNCTION
