@@ -91,11 +91,11 @@ h2 {
   border: var(--border-color) solid 0.5px;
   outline: none;
   width: 20rem;
+  padding-left: 2rem;
 }
 
 input::placeholder {
   color: var(--border-color);
-  text-align: center;
 }
 
 .solar-system-container {
