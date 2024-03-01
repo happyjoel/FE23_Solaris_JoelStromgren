@@ -23,36 +23,21 @@ async function getApiKey() {
 
 // API förfrågan för hämtning av alla planeter
 async function getPlanetData(planetID) {
-  await getApiKey();
-  const url = "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/bodies";
-
-  await fetch(url, {
-    method: "GET",
-    headers: { "x-zocom": `${apiKey}` },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      renderPlanetDescription(data.bodies[planetID]);
-    })
-    .catch((error) => {
-      alert("Something went wrong, Check console! "),
-        console.log("error", error);
-    });
+  try {
+    // Anropar API:n via funktionen apiCall() och sparar responsen i variabeln data
+    const data = await apiCall();
+    // Kör funktion för att rendera/visa respektive planet baserat på inmatade planetID (data-index från html) som körs mot API:n
+    renderPlanetDescription(data.bodies[planetID]);
+  } catch (error) {
+    alert("Något blev fel med renderingen av informationen!, ", error),
+      console.log("error", error);
+  }
 }
 
 // Funktion för att söka i API efter inmatat värde (input)
 const searchApi = async function (input) {
   try {
-    await getApiKey();
-    const response = await fetch(
-      "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/bodies",
-      {
-        method: "GET",
-        headers: { "x-zocom": `${apiKey}` },
-      }
-    );
-
-    const data = await response.json();
+    const data = await apiCall();
 
     // looopar igenom bodies och försöker hitta match mellan inputfield-värdet och faktiska namn på planeterna
     data.bodies.forEach((body) => {
@@ -64,5 +49,24 @@ const searchApi = async function (input) {
     });
   } catch (error) {
     console.log("Något blev fel med din sökning: ", error);
+  }
+};
+
+// Function som kör alla API anrop
+const apiCall = async function () {
+  try {
+    await getApiKey();
+    const response = await fetch(
+      "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/bodies",
+      {
+        method: "GET",
+        headers: { "x-zocom": `${apiKey}` },
+      }
+    );
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("Något blev fel med hämtningen från API:n: ", error);
   }
 };

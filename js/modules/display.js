@@ -1,6 +1,7 @@
 const modal = document.querySelector(".modal");
 const searchInput = document.querySelector(".search-input");
 const blurOverlay = document.querySelector(".blur-overlay");
+const solarSystemContainer = document.querySelector(".solar-system-container");
 
 export {
   renderPlanetDescription,
@@ -9,6 +10,31 @@ export {
   searchInput,
   modal,
 };
+
+// Function som manipulerar alla planets opacity beroende på vilken planet man hover med muspekaren
+const handleHover = function (e) {
+  if (e.target.classList.contains("planet")) {
+    // Sparar target i en variabel
+    const planet = e.target;
+
+    // Med closets hittar jag närmasta gemensamma parent och selecta alla children med .planet i classlistan
+    const siblingPlanets = planet
+      .closest(".solar-system-container")
+      .querySelectorAll(".planet");
+
+    // Här loopar jag genom alla .planet
+    siblingPlanets.forEach((el) => {
+      // Om el inte är detsamma som planet (target) så justeras el's opacity
+      if (el !== planet) {
+        el.style.opacity = this;
+      }
+    });
+  }
+};
+
+// Eventlisterners som lyssnar efter muspekare som förs in och ur solarSystemContainer (Då detta är solen + planeternas gemensamma parent)
+solarSystemContainer.addEventListener("mouseover", handleHover.bind(0.2));
+solarSystemContainer.addEventListener("mouseout", handleHover.bind(1));
 
 // Funktion som visar/döljer modal-diven, blur-filtret och tömmer eventuell inmatning i inputfältet
 const toggleModal = function () {

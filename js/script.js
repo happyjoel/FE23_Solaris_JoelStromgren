@@ -18,15 +18,17 @@ import {
 planets.forEach((planet) => {
   planet.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(e.target);
-    getPlanetData(e.target.dataset.index);
+    // Använder .closest för att eventlistenern ska lyssna på göra saturnus ring (closest letar efter närmsta parent med class'.planet')
+    const clicked = e.target.closest(".planet");
+
+    // Jag har indexerat planeterna med data-index 0-8 som här avläses och körs som sökning i APIn
+    getPlanetData(clicked.dataset.index);
   });
 });
 
 sun.addEventListener("click", (e) => {
   e.preventDefault();
   getPlanetData(e.target.dataset.index);
-  console.log(e.target);
 });
 
 // Toggle MODAL och BLUR när man klickar blurOverlay
@@ -46,4 +48,12 @@ searchInput.addEventListener("keyup", (e) => {
   if (e.keyCode === 13) {
     searchApi(searchInput.value);
   }
+});
+
+planets.forEach((planet) => {
+  planet.addEventListener("mouseenter", (e) => {
+    Array.from(planet.parentElement.children).forEach((planet) => {
+      if (planet === e.target) console.log(planet);
+    });
+  });
 });
