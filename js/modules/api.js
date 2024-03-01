@@ -67,7 +67,7 @@ const searchApi = async function (input) {
       // Gör både input och body.name till lowercase
 
       if (body.name.toLowerCase() === input.toLowerCase()) {
-        return renderPlanetDescription(body);
+        renderPlanetDescription(body);
       }
     });
   } catch (error) {

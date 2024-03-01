@@ -21,7 +21,7 @@ const init = function () {
   popup.classList.add("inactive");
   blurOverlay.classList.add("inactive");
   searchInput.value = "";
-  searchInput.classList.add("inactive-opacity");
+  searchInput.classList.remove("inactive-opacity");
   modal.classList.add("inactive");
   popup.innerHTML = "";
 };
@@ -116,6 +116,6 @@ const togglePopup = function (message) {
     popup.classList.toggle("inactive");
     blurOverlay.classList.toggle("inactive");
     searchInput.value = "";
-    searchInput.classList.toggle("inactive-opacity");
+    // searchInput.classList.toggle("inactive-opacity");
   }
 };

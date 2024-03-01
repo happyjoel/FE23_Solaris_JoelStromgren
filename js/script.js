@@ -2,7 +2,6 @@
 //                          SELECTORS
 
 const planets = document.querySelectorAll(".planet");
-const sun = document.querySelector(".planet-sun");
 
 import { searchApi, getPlanetData } from "./modules/api.js";
 import {
@@ -11,6 +10,7 @@ import {
   toggleModal,
   modal,
   init,
+  togglePopup,
 } from "./modules/display.js";
 
 //                       EVENT LISTERNERS
@@ -27,11 +27,6 @@ planets.forEach((planet) => {
   });
 });
 
-sun.addEventListener("click", (e) => {
-  e.preventDefault();
-  getPlanetData(e.target.dataset.index);
-});
-
 // Toggle MODAL och BLUR när man klickar blurOverlay
 blurOverlay.addEventListener("click", (e) => {
   e.preventDefault();
@@ -42,6 +37,7 @@ blurOverlay.addEventListener("click", (e) => {
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape" && !modal.classList.contains("inactive")) {
     toggleModal();
+    init();
   }
 });
 
