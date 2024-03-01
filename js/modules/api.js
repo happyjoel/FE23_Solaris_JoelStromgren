@@ -1,3 +1,5 @@
+// ALLT API-relaterat
+
 import { renderPlanetDescription, togglePopup } from "../modules/display.js";
 
 export { searchApi, getPlanetData };

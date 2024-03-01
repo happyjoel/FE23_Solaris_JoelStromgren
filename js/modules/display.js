@@ -1,3 +1,4 @@
+// ALLT "ytskikt"
 const modal = document.querySelector(".modal");
 const searchInput = document.querySelector(".search-input");
 const blurOverlay = document.querySelector(".blur-overlay");
@@ -15,8 +16,7 @@ export {
   init,
 };
 
-addEventListener;
-
+// Funktion som nollställer alla fönster till startläge
 const init = function () {
   popup.classList.add("inactive");
   blurOverlay.classList.add("inactive");
@@ -62,6 +62,7 @@ const toggleModal = function () {
   searchInput.classList.toggle("inactive-opacity");
 };
 
+// Funktion som ändrar opacity på inmatat element till inmatat värde, bara för DRY
 const opacityChanger = function (el, value) {
   el.style.opacity = value;
 };

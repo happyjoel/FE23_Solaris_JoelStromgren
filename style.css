@@ -26,8 +26,7 @@ body {
   height: 100vh;
   background: linear-gradient(45deg, #0c164d, #190b22);
   overflow: hidden;
-  
-
+}
 button {
   background-color: var(--primary-color);
   color: var(--white-color);
@@ -96,7 +95,6 @@ input::placeholder {
   width: 100%;
   display: flex;
   align-items: center;
-  transform: rotate(-25deg);
 }
 
 .planets-container {
