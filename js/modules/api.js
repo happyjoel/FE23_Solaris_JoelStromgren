@@ -1,8 +1,9 @@
-let apiKey = "";
-
 import { renderPlanetDescription } from "../modules/display.js";
 
 export { searchApi, getPlanetData };
+
+// Här lagras API-key som hämtas i getApiKey - funktionen så att den blir tillgänglig i global scope för andra funktioner
+let apiKey = "";
 
 // API förfrågan om att hämta API-NYCKEL
 async function getApiKey() {
@@ -41,20 +42,24 @@ async function getPlanetData(planetID) {
 
 // Funktion för att söka i API efter inmatat värde (input)
 const searchApi = async function (input) {
-  await getApiKey();
-  const response = await fetch(
-    "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/bodies",
-    {
-      method: "GET",
-      headers: { "x-zocom": `${apiKey}` },
-    }
-  );
+  try {
+    await getApiKey();
+    const response = await fetch(
+      "https://n5n3eiyjb0.execute-api.eu-north-1.amazonaws.com/bodies",
+      {
+        method: "GET",
+        headers: { "x-zocom": `${apiKey}` },
+      }
+    );
 
-  const data = await response.json();
+    const data = await response.json();
 
-  data.bodies.forEach((body) => {
-    if (body.name.toLowerCase() === input.toLowerCase()) {
-      return renderPlanetDescription(body);
-    }
-  });
+    data.bodies.forEach((body) => {
+      if (body.name.toLowerCase() === input.toLowerCase()) {
+        return renderPlanetDescription(body);
+      }
+    });
+  } catch (error) {
+    console.log("Något blev fel med din sökning: ", error);
+  }
 };

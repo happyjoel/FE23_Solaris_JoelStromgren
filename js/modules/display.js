@@ -55,5 +55,6 @@ const renderPlanetDescription = function (data) {
   // Modal-diven fylls med html-variabelns innehåll.
   modal.innerHTML = html;
 
+  // Kallar på toggleModal-funktionen som visar modal-diven
   toggleModal();
 };
