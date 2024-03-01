@@ -25,7 +25,8 @@ body {
   place-items: center;
   height: 100vh;
   background: linear-gradient(45deg, #0c164d, #190b22);
-}
+  overflow: hidden;
+  
 
 button {
   background-color: var(--primary-color);
@@ -95,6 +96,7 @@ input::placeholder {
   width: 100%;
   display: flex;
   align-items: center;
+  transform: rotate(-25deg);
 }
 
 .planets-container {
@@ -232,9 +234,40 @@ input::placeholder {
 }
 
 .inactive {
-  display: none;
+  display: none !important;
 }
 
 .inactive-opacity {
   opacity: 0;
+}
+
+/* POPUP */
+
+.popup {
+  position: absolute;
+  /* display: flex;
+  flex-direction: column;
+  gap: 3.2rem; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(255, 255, 255);
+  width: 50rem;
+
+  font-size: 1.6rem;
+  color: #190b22;
+  font-weight: 100;
+  padding: 3.2rem;
+  z-index: 1000;
+  border-radius: var(--border-radius-small);
+  transition: all 0.5s ease-out;
+  text-align: center;
+}
+.popup h3 {
+  color: #0c164d;
+  margin-bottom: 3.2rem;
+}
+
+.popup h3:last-child {
+  margin-bottom: 0rem;
 }

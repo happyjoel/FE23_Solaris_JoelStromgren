@@ -10,6 +10,7 @@ import {
   searchInput,
   toggleModal,
   modal,
+  init,
 } from "./modules/display.js";
 
 //                       EVENT LISTERNERS
@@ -18,7 +19,7 @@ import {
 planets.forEach((planet) => {
   planet.addEventListener("click", (e) => {
     e.preventDefault();
-    // Använder .closest för att eventlistenern ska lyssna på göra saturnus ring (closest letar efter närmsta parent med class'.planet')
+    // Med hjälp av closest() fångar jag alla event på alla element med .planet samt eventuella children av detta. T ex saturnus ring i detta fallet.
     const clicked = e.target.closest(".planet");
 
     // Jag har indexerat planeterna med data-index 0-8 som här avläses och körs som sökning i APIn
@@ -34,7 +35,7 @@ sun.addEventListener("click", (e) => {
 // Toggle MODAL och BLUR när man klickar blurOverlay
 blurOverlay.addEventListener("click", (e) => {
   e.preventDefault();
-  toggleModal();
+  init();
 });
 
 // Toggle MODAL och BLUR om man trycker ESC och om modal innehåller classen inactive
@@ -44,9 +45,12 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
+//
 searchInput.addEventListener("keyup", (e) => {
   if (e.keyCode === 13) {
-    searchApi(searchInput.value);
+    searchInput.value
+      ? searchApi(searchInput.value)
+      : alert("Sökfältet är tomt");
   }
 });
 

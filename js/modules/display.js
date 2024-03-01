@@ -2,6 +2,7 @@ const modal = document.querySelector(".modal");
 const searchInput = document.querySelector(".search-input");
 const blurOverlay = document.querySelector(".blur-overlay");
 const solarSystemContainer = document.querySelector(".solar-system-container");
+const popup = document.querySelector(".popup");
 
 export {
   renderPlanetDescription,
@@ -9,30 +10,47 @@ export {
   blurOverlay,
   searchInput,
   modal,
+  popup,
+  togglePopup,
+  init,
+};
+
+addEventListener;
+
+const init = function () {
+  popup.classList.add("inactive");
+  blurOverlay.classList.add("inactive");
+  searchInput.value = "";
+  searchInput.classList.add("inactive-opacity");
+  modal.classList.add("inactive");
+  popup.innerHTML = "";
 };
 
 // Function som manipulerar alla planets opacity beroende på vilken planet man hover med muspekaren
 const handleHover = function (e) {
-  if (e.target.classList.contains("planet")) {
-    // Sparar target i en variabel
-    const planet = e.target;
+  // Med hjälp av closest() fångar jag alla event på alla element med .planet samt eventuella children av detta. T ex saturnus ring i detta fallet.
+  const clicked = e.target.closest(".planet");
 
-    // Med closets hittar jag närmasta gemensamma parent och selecta alla children med .planet i classlistan
-    const siblingPlanets = planet
-      .closest(".solar-system-container")
-      .querySelectorAll(".planet");
+  if (clicked) {
+    if (clicked.classList.contains("planet")) {
+      // Sparar target i en variabel
+      const planet = e.target.closest(".planet");
 
-    // Här loopar jag genom alla .planet
-    siblingPlanets.forEach((el) => {
-      // Om el inte är detsamma som planet (target) så justeras el's opacity
-      if (el !== planet) {
-        el.style.opacity = this;
-      }
-    });
+      // selecta alla  solarSystemContainer's children med .planet i classlistan
+      const siblingPlanets = solarSystemContainer.querySelectorAll(".planet");
+      // Här loopar jag genom alla .planet
+      siblingPlanets.forEach((el) => {
+        // Om el inte är detsamma som planet (target) så justeras el's opacity
+        if (el !== planet) {
+          opacityChanger(el, this);
+        }
+      });
+    }
   }
 };
 
 // Eventlisterners som lyssnar efter muspekare som förs in och ur solarSystemContainer (Då detta är solen + planeternas gemensamma parent)
+// Och kallar på handleHover med this-keywordet satt till nedan givna värden
 solarSystemContainer.addEventListener("mouseover", handleHover.bind(0.2));
 solarSystemContainer.addEventListener("mouseout", handleHover.bind(1));
 
@@ -42,6 +60,10 @@ const toggleModal = function () {
   blurOverlay.classList.toggle("inactive");
   searchInput.value = "";
   searchInput.classList.toggle("inactive-opacity");
+};
+
+const opacityChanger = function (el, value) {
+  el.style.opacity = value;
 };
 
 // Funktion som renderar/visar info om respektive planet
@@ -83,4 +105,16 @@ const renderPlanetDescription = function (data) {
 
   // Kallar på toggleModal-funktionen som visar modal-diven
   toggleModal();
+};
+
+// Funktion som visar/döljer varnings popup för felmeddelande
+const togglePopup = function (message) {
+  popup.insertAdjacentHTML("afterbegin", `<h3>${message}</h3>`);
+
+  if (popup.classList.contains("inactive")) {
+    popup.classList.toggle("inactive");
+    blurOverlay.classList.toggle("inactive");
+    searchInput.value = "";
+    searchInput.classList.toggle("inactive-opacity");
+  }
 };
