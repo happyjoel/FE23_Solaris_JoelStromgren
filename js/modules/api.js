@@ -54,7 +54,10 @@ const searchApi = async function (input) {
 
     const data = await response.json();
 
+    // looopar igenom bodies och försöker hitta match mellan inputfield-värdet och faktiska namn på planeterna
     data.bodies.forEach((body) => {
+      // Gör både input och body.name till lowercase
+
       if (body.name.toLowerCase() === input.toLowerCase()) {
         return renderPlanetDescription(body);
       }
